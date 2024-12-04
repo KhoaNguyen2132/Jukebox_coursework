@@ -88,14 +88,4 @@ def increment_play_count(key):
         library[key].play_count += 1
 
 
-# Example usage
-if __name__ == "__main__":
-    print("All Tracks:")
-    print(list_all())
 
-    print("\nSearch Results:")
-    print(search_tracks("Pink"))
-
-    print("\nGet Track Details:")
-    get_track_details("01")
-    get_track_details("06")  # Nonexistent track to test error handling

@@ -24,47 +24,30 @@ class UpdateTracks:
         self.status_lbl.grid(row=1, column=0, columnspan=5, pady=10)
 
     def update_track_clicked(self):
-        track_num = self.track_num_txt.get()
+        track_num = self.track_num_txt.get()  # Get the track number entered by the user
+        if not track_num.isdigit() or len(track_num) != 2:  # Validate the track number
+            self.status_lbl.configure(text="Invalid track number. Please enter a two-digit number (e.g., '01').")
+            return
+
         try:
-            rating = int(self.rating_txt.get())
+            rating = int(self.rating_txt.get())  # Validate the rating input
             if rating < 1 or rating > 5:
                 self.status_lbl.configure(text="Rating must be between 1 and 5.")
                 return
         except ValueError:
-            self.status_lbl.configure(text="Invalid rating. Please enter a number between 1 and 5.")
+            self.status_lbl.configure(text="Invalid rating. Please enter a numeric value between 1 and 5.")
             return
 
-        track = lib.get_track(track_num)
+        track = lib.library.get(track_num)  # Access the track directly from the library
         if track:
-            lib.set_rating(track_num, rating)
+            lib.set_rating(track_num, rating)  # Update the track rating
             self.status_lbl.configure(
                 text=f"Track '{track.name}' updated! New rating: {rating}, Play count: {track.play_count}."
             )
         else:
-            self.status_lbl.configure(text="Invalid track number. Please try again.")
-def update_track_clicked(self):
-    track_num = self.track_num_txt.get()
-    if not track_num.isdigit() or len(track_num) != 2:  # Check valid track number
-        self.status_lbl.configure(text="Invalid track number. Please enter a valid two-digit number (e.g., '01').")
-        return
+            self.status_lbl.configure(text="Track not found. Please try again.")
 
-    try:
-        rating = int(self.rating_txt.get())
-        if rating < 1 or rating > 5:
-            self.status_lbl.configure(text="Rating must be between 1 and 5.")
-            return
-    except ValueError:
-        self.status_lbl.configure(text="Invalid rating. Please enter a numeric value between 1 and 5.")
-        return
 
-    track = lib.get_track_details(track_num)
-    if track:
-        lib.set_rating(track_num, rating)
-        self.status_lbl.configure(
-            text=f"Track '{track.name}' updated! New rating: {rating}, Play count: {track.play_count}."
-        )
-    else:
-        self.status_lbl.configure(text="Track not found. Please try again.")
 if __name__ == "__main__":
     window = tk.Tk()
     UpdateTracks(window)
