@@ -10,7 +10,7 @@ class LibraryItem:
     def info(self):
         """Returns a formatted string with track information."""
         return f"{self.name} - {self.artist} {self.stars()}"
-
+#I put stars as my rating for conveinency
     def stars(self):
         """Returns a star-based rating representation."""
         return "*" * self.rating

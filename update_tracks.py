@@ -57,7 +57,7 @@ def update_track_clicked(self):
         self.status_lbl.configure(text="Invalid rating. Please enter a numeric value between 1 and 5.")
         return
 
-    track = lib.get_track(track_num)
+    track = lib.get_track_details(track_num)
     if track:
         lib.set_rating(track_num, rating)
         self.status_lbl.configure(
@@ -65,3 +65,7 @@ def update_track_clicked(self):
         )
     else:
         self.status_lbl.configure(text="Track not found. Please try again.")
+if __name__ == "__main__":
+    window = tk.Tk()
+    UpdateTracks(window)
+    window.mainloop()
